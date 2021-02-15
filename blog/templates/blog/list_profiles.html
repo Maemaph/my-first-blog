@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+
+{% block title %}
+    User Profiles
+{% endblock %}
+
+{% block content %}
+    <h1>User Profiles</h1>
+    <div>
+        {% if userprofile_list %}
+        <div>
+            <div>
+                {% for listuser in userprofile_list %}
+                <div>
+                    <h4>
+                        <a href="{% url 'profile' listuser.user.username %}">
+                            {{ listuser.user.username }}
+                        </a>
+                    </h4>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+            <p>There are no users for the site.</p>
+        {% endif %}
+    </div>
+{% endblock %}

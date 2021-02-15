@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ selecteduser.username }} Profile
+{% endblock %}
+
+{% block content %}
+    <h1>{{ selecteduser.username }} Profile</h1>
+    <img src="{{ MEDIA_URL }}{{ userprofile.picture }}"
+         width="300" height="300" alt="{{selecteduser.username}}">
+    <br>
+    <div>
+        {% if selecteduser.username == user.username %}
+            <form method="post" action="." enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Update" formmethod="post">
+            </form>
+        {% endif %}
+    </div>
+    <div id="edit_profile"></div>
+    <a href="{% url 'list_profiles' %}">All Profiles</a>
+{% endblock %}

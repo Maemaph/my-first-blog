@@ -16,9 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from blog import views
+from registration.backends.simple.views import RegistrationView
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+class MyRegistrationView(RegistrationView):
+    def get_success_url(self, user):
+        return path('register_profile')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.post_list, name='post_list'),
     path('', include('blog.urls')),
-]
+    path('accounts/',
+         include('registration.backends.simple.urls')),
+    path('accounts/register/', MyRegistrationView.as_view(),
+         name='registration_register'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

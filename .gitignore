@@ -2,6 +2,8 @@
 *.pyc
 *~
 __pycache__
+settings.py
+secret.py
 
 # Env
 .env

@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+    <h2>Sign Up</h2>
+    {% if registered %}
+        <strong>Thank you for registering</strong>
+        <p>Start writing <a href="{% url 'post_new' %}">here!</a><br>
+            or Go back to <a href="/">Home</a></p>
+    {% else %}
+        <strong>Register</strong>
+        <form id="user_form" method="post" action="{% url 'register' %}"
+              enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+
+            <input type="submit" name="Submit" value="Register">
+        </form>
+    {% endif %}
+{% endblock %}
